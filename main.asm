@@ -1,4 +1,3 @@
-; template for programs
 .model small
 .stack 100h
 .data
@@ -18,20 +17,19 @@ x2 db ?
 mov ax,@data
 mov ds, ax
 
-; here your program starts
 lea bx, a
-in al,1; enter value for a
+in al,1
 mov [bx],al
 
 cmp al,0
 jz failed
 
 lea bx, b
-in al,1; enter value for b
+in al,1
 mov [bx],al
 
 lea bx, c
-in al,1; enter value for c
+in al,1
 mov [bx],al
 
 call power
@@ -39,7 +37,7 @@ call ac4
 
 lea bx,bpower
 mov ch,[bx]
-lea bx,a4c ;error if this is neg number
+lea bx,a4c 
 sub ch,[bx]
 js failed
 call sqrt
@@ -48,14 +46,14 @@ call division
 
 lea bx,x1
 mov al,[bx]
-out 2,al; = X1
+out 2,al
 
 lea bx,x2real
 cmp [bx],0
 je endprogram
 lea bx,x2
 mov al,[bx]
-out 2,al; = X2
+out 2,al
 
 jmp endprogram
 
@@ -81,13 +79,11 @@ mov ah, 14
 int 10h
 endprogram:
 
-; here your program ends
 
 mov ah,4ch
 mov al,0
 int 21h
 
-; here your sub-programs start
 power:
 lea bx,b
 mov al,[bx]
@@ -109,7 +105,7 @@ mov [bx],al
 ret
 
 sqrt:
-xor ah,ah; counter
+xor ah,ah
 mov dl,ch
 inc dl
 mov dh,1
@@ -155,19 +151,17 @@ ret
 division:
 lea bx,x12a
 mov cl,[bx]
-;cl=x1top
+
 
 againforx2:
 
 mov ax, 2
 mul a
 mov ch,al
-;ch = 2a
 
 
 xor dh,dh
 
-;check if 2a is neg if true turn to pos and add inc dh
 cmp ch,0
 jns a2pos
 inc dh
@@ -175,7 +169,6 @@ not ch
 inc ch
 
 
-;check if x1top neg if true turn to pos and add inc dh
 a2pos:
 cmp cl,0
 jns x1topos
@@ -216,5 +209,5 @@ jmp againforx2
 
 donex2:
 ret
-; here your sub-programs end
+
 end
